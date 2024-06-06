@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-wid th, initial-scale=1.0">
+    <title>Авторизация</title>
+    <script src="{% static 'js/main.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/auth.css'%}" type="text/css">
+</head>
+<body>
+    <div class="container">
+        <h1>Авторизация</h1>
+        <input type="text" id="phone" placeholder="Введите номер телефона">
+        <button onclick='sendVerificationCode()'>Отправить проверочный код</button>
+    </div>
+</body>
+</html>

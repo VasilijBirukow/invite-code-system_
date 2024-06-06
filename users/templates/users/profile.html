@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личная страница пользователя</title>
+    <script type="text/javascript">
+        const userPhone = "{{ phone }}";
+    </script>
+    <script src="{% static 'js/profile.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/profile.css'%}" type="text/css">
+</head>
+<body>
+    <div class="container">
+        <div class="user-info" id="user_phone_container"></div>
+        <div class="user-info" id="generated_invite_code_container"></div>
+        <div class="user-names" id="applied_invite_code_container"></div>
+        <div class="user-info" id="code_users_container"></div>
+    </div>
+<!--todo скрытое поле с номером телефона-->
+</body>
+</html>
