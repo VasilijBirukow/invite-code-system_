@@ -18,7 +18,6 @@ def auth_page(request):
 
 
 def auth_function(request):
-    """Обрабатывает запрос пользователя"""
     phone = re.sub(r'[^0-9]', '', str(request.GET.get('phone')))
     is_valid = check_valid(phone)
     if not is_valid:
@@ -32,7 +31,6 @@ def auth_function(request):
 
 
 def check_valid(phone: str) -> bool:
-    """Проверка валидации номера телефона"""
     if len(phone) != 11:
         return False
 
@@ -43,12 +41,10 @@ def check_valid(phone: str) -> bool:
 
 
 def check_absent_user(phone):
-    """"Проверка наличия пользователя в бд"""
     return not User.objects.filter(number=phone).exists()
 
 
 def create_user(phone):
-    """Создание пользователя в бд"""
     generated_code = create_invite_code()
 
     user = User(number=phone, generated_code=generated_code, applied_code=None)
@@ -58,7 +54,6 @@ def create_user(phone):
 
 
 def create_invite_code():
-    """Создание invite-кода в бд"""
     invite_code = InviteCode(code=get_invite_code())
     invite_code.save()
 
@@ -66,7 +61,6 @@ def create_invite_code():
 
 
 def get_invite_code() -> str:
-    """Получить invite-код"""
     code = generated_invite_code()
     while not absent_invite_code(code):
         code = generated_invite_code()
@@ -74,13 +68,11 @@ def get_invite_code() -> str:
 
 
 def generated_invite_code():
-    """Генератор invite кода"""
     code = f"rf{fill_random(get_letters_numbers(), 4)}"
     return code
 
 
 def absent_invite_code(code) -> bool:
-    """Проверяет invite-code на наличие в бд"""
     return not InviteCode.objects.filter(code=code).exists()
 
 
@@ -114,7 +106,6 @@ def get_user_data_dict(phone):
 
 
 def get_user_by_phone(phone, dict_type=True):
-    """Получает из бд пользовался с номером phone"""
     try:
         if dict_type is True:
             return model_to_dict(User.objects.get(number=phone))
@@ -206,5 +197,4 @@ def check_valid_invite_code(code, phone):
 
 
 def standard_phone(phone: int) -> str:
-    """Привести номер телефона к стандартному виду"""
     return f"+7 ({phone[1:4]}) {phone[4:7]}-{phone[7:9]}-{phone[9:11]}"
